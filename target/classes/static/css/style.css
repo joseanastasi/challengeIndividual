@@ -1,0 +1,11 @@
+
+.index{
+	background-image: url("../img/2.jpg");
+	background-repeat:no-repeat;
+	background-size:cover;
+			
+}
+td{
+	font-size:20px;
+	font-weight: 600;
+}
