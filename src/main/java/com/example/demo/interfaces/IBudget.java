@@ -14,6 +14,6 @@ public interface IBudget extends JpaRepository<Budget, Integer> {
 	@Query(value = "SELECT sum(amount) FROM budget", nativeQuery = true)
 	String sum();
 	
-	@Query(value = "SELECT * FROM budget order by type LIMIT 10;", nativeQuery = true)
+	@Query(value = "SELECT * FROM budget order by date LIMIT 10;", nativeQuery = true)
 	List<Budget> lasTen();
 }

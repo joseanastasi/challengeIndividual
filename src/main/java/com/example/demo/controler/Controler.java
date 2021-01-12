@@ -50,21 +50,21 @@ public class Controler {
 		return "redirect:/list";
 	}
 	
-	@GetMapping("/edit/{nrotrans}")
-	public String edit(@PathVariable int nrotrans, Model model) {
+	@GetMapping("/edit/{noTxn}")
+	public String edit(@PathVariable int noTxn, Model model) {
 		boolean isActive=false;
-		if(nrotrans>0) {
+		if(noTxn>0) {
 			isActive = true;
 		}
-		Optional<Budget>budget=service.listNrotrans(nrotrans);
+		Optional<Budget>budget=service.listNoTxn(noTxn);
 		model.addAttribute("isActive", isActive);
 		model.addAttribute("budget", budget);
 		return "form";
 	}
 	
-	@GetMapping("/delete/{nrotrans}")
-	public String delete(@PathVariable int nrotrans, Model model) {
-		service.delete(nrotrans);
+	@GetMapping("/delete/{noTxn}")
+	public String delete(@PathVariable int noTxn, Model model) {
+		service.delete(noTxn);
 		return "redirect:/list";
 	}	
 }
