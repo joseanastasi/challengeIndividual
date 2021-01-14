@@ -8,8 +8,12 @@
 
 </head>
 <body class="index">
+
 	<div class="container  mt-4">
+	<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
+	
 	<a th:href="@{/add}" class="btn btn-primary">Add Budget</a>	
+	<a class="btn btn-primary" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>logout</span></a>				   	
 	<br><br>
 	<div><label>Balance:</label><label th:text="${suma}"></label></div>	
 		<table class="table">
@@ -34,6 +38,7 @@
 				</tr>
 			</tbody>					
 		</table>
+	</div>
 	</div>
 </body>
 </html>
