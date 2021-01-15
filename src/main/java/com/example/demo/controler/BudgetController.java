@@ -20,7 +20,7 @@ import com.example.demo.modelo.Budget;
 
 @Controller
 @RequestMapping
-public class Controler {
+public class BudgetController {
 	
 	@Autowired
 	private IBudgetService service;
@@ -58,9 +58,9 @@ public class Controler {
 		if(noTxn>0) {
 			isActive = true;
 		}
-		Optional<Budget>budget=service.listNoTxn(noTxn);
+		Optional<Budget> budget= service.listNoTxn(noTxn);
 		model.addAttribute("isActive", isActive);
-		model.addAttribute("budget", budget);
+		model.addAttribute("budget",budget);
 		return "form";
 	}
 	
