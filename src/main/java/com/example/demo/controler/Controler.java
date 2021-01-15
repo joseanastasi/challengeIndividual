@@ -25,6 +25,8 @@ public class Controler {
 	@Autowired
 	private IBudgetService service;
 	
+	
+
 	@GetMapping("/list")
 	public String list(Model model) {
 		List<Budget>budget = service.lastTen();
