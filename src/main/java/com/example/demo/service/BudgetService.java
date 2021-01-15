@@ -20,8 +20,8 @@ public class BudgetService implements IBudgetService{
 	
 	
 	@Override
-	public Optional<Budget> listNrotrans(int nrotrans) {
-		return data.findById(nrotrans);
+	public Optional<Budget> listNoTxn(int noTxn) {
+		return data.findById(noTxn);
 	}
 
 	@Override
@@ -32,15 +32,15 @@ if(b.getType().equals("Egreso")) {
 		}
 		int res=0;
 		Budget budget = data.save(b);
-		if (!budget.equals(null)) {
+		if (budget != null) {
 			res=1;
 		} 		
 		return res;
 	}
 		
 	@Override
-	public void delete(int nrotrans) {
-		data.deleteById(nrotrans);		
+	public void delete(int noTxn) {
+		data.deleteById(noTxn);		
 	}
 
 	@Override

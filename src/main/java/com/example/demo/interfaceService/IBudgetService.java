@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.example.demo.modelo.Budget;
 
 public interface IBudgetService {
-	public Optional<Budget>listNrotrans(int nrotrans);
+	public Optional<Budget>listNoTxn(int noTxn);
 	public int save(Budget b);
 	public void delete(int id);
 	public String sum();

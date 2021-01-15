@@ -28,7 +28,7 @@ public class Budget implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int nrotrans;
+	private int noTxn;
 	@NotEmpty
 	@NotNull
 	private String concept;
@@ -52,12 +52,13 @@ public class Budget implements Serializable{
 		this.type = type;
 	}
 	
-	public int getNrotrans() {
-		return nrotrans;
+	
+	public int getNoTxn() {
+		return noTxn;
 	}
 
-	public void setNrotrans(int nrotrans) {
-		this.nrotrans = nrotrans;
+	public void setNoTxn(int noTxn) {
+		this.noTxn = noTxn;
 	}
 
 	public String getConcept() {
