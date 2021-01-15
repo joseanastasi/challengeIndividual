@@ -32,7 +32,7 @@ if(b.getType().equals("Egreso")) {
 		}
 		int res=0;
 		Budget budget = data.save(b);
-		if (!budget.equals(null)) {
+		if (budget != null) {
 			res=1;
 		} 		
 		return res;
