@@ -40,8 +40,6 @@ public class UserController {
 	
 	@Autowired
 	RoleService roleService;
-	@Autowired
-	RoleRepository roleRepository;
 
 	
 	
@@ -52,9 +50,8 @@ public class UserController {
 	
 	@GetMapping("/signup")
 	public String signup(Model model) {
-		Role userRole = roleRepository.findByName("USER"); 
 
-//		Role userRole = roleService.findByName("USER");
+		Role userRole = roleService.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		
 		model.addAttribute("signup",true);
@@ -65,9 +62,10 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	public String signupAction(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
-		Role userRole = roleRepository.findByName("USER"); 
-//				roleService.findByName("USER");
+		
+		Role userRole =	roleService.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
+		
 		model.addAttribute("userForm", user);
 		model.addAttribute("roles",roles);
 		model.addAttribute("signup",true);
