@@ -19,8 +19,8 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.example.demo.interfaces.IBudget;
 import com.example.demo.modelo.Budget;
+import com.example.demo.repositories.RepositoryBudget;
 
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = { TestContext.class, WebApplicationContext.class })
@@ -28,7 +28,7 @@ import com.example.demo.modelo.Budget;
 public class BudgetServiceTest {
     
 	@Mock
-	private IBudget budgetRepository;
+	private RepositoryBudget budgetRepository;
 	
 	@InjectMocks
     BudgetService budgetService;
@@ -60,7 +60,7 @@ public class BudgetServiceTest {
     @Test
     public void testSum() {
     	//TODO: si corrijo el codigo de IBudget de String a Float cambiar el tipo de res
-    	String res = "5";    	
+    	Float res = 5F;    	
         when(budgetRepository.sum()).thenReturn(res);               
         assertEquals(res, budgetService.sum());        
     }
@@ -71,7 +71,7 @@ public class BudgetServiceTest {
     	Budget budget2 = createBudget();
     	List<Budget> budgetList = List.of(budget1, budget2);
     			
-        when(budgetRepository.lasTen()).thenReturn(budgetList);        
+        when(budgetRepository.lastTen()).thenReturn(budgetList);        
         assertEquals(budgetList, budgetService.lastTen());              
     }
 

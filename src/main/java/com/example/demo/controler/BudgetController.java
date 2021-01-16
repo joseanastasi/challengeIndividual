@@ -23,14 +23,14 @@ import com.example.demo.modelo.Budget;
 public class BudgetController {
 	
 	@Autowired
-	private IBudgetService service;
+	private IBudgetService budgetService;
 	
 	
 
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<Budget>budget = service.lastTen();
-		String s = service.sum();
+		List<Budget>budget = budgetService.lastTen();
+		Float s = budgetService.sum();
 		model.addAttribute("budgets", budget);
 		model.addAttribute("suma", s);
 		return "index";
@@ -48,7 +48,7 @@ public class BudgetController {
 			return "form";
 		}
 		
-		service.save(b);
+		budgetService.save(b);
 		return "redirect:/list";
 	}
 	
@@ -58,7 +58,7 @@ public class BudgetController {
 		if(noTxn>0) {
 			isActive = true;
 		}
-		Optional<Budget> budget= service.listNoTxn(noTxn);
+		Optional<Budget> budget= budgetService.listNoTxn(noTxn);
 		model.addAttribute("isActive", isActive);
 		model.addAttribute("budget",budget);
 		return "form";
@@ -66,7 +66,7 @@ public class BudgetController {
 	
 	@GetMapping("/delete/{noTxn}")
 	public String delete(@PathVariable int noTxn, Model model) {
-		service.delete(noTxn);
+		budgetService.delete(noTxn);
 		return "redirect:/list";
 	}	
 }
