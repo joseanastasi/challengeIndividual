@@ -54,7 +54,6 @@ public class BudgetControllerTest {
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-	    Mockito.when(mockBindingResult.hasErrors()).thenReturn(false);
 		mockMvc = MockMvcBuilders.standaloneSetup(budgetController).build();
 	}
 	
@@ -64,7 +63,7 @@ public class BudgetControllerTest {
 		Budget budget1 = createBudget();
     	Budget budget2 = createBudget();
     	List<Budget> budgetList = List.of(budget1, budget2);
-    	String s = "5";
+    	Float s = 5F;
 	
 		when(budgetServiceMock.lastTen()).thenReturn(budgetList);	
 		when(budgetServiceMock.sum()).thenReturn(s);	

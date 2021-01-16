@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.interfaceService.IBudgetService;
-import com.example.demo.interfaces.IBudget;
 import com.example.demo.modelo.Budget;
+import com.example.demo.repositories.RepositoryBudget;
 
 
 
@@ -16,12 +16,12 @@ import com.example.demo.modelo.Budget;
 public class BudgetService implements IBudgetService{
 	
 	@Autowired
-	private IBudget data;
+	private RepositoryBudget repositoryBudget;
 	
 	
 	@Override
 	public Optional<Budget> listNoTxn(int noTxn) {
-		return data.findById(noTxn);
+		return repositoryBudget.findById(noTxn);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ if(b.getType().equals("Egreso")) {
 		 	b.setAmount(b.getAmount() * -1);
 		}
 		int res=0;
-		Budget budget = data.save(b);
+		Budget budget = repositoryBudget.save(b);
 		if (budget != null) {
 			res=1;
 		} 		
@@ -40,20 +40,20 @@ if(b.getType().equals("Egreso")) {
 		
 	@Override
 	public void delete(int noTxn) {
-		data.deleteById(noTxn);		
+		repositoryBudget.deleteById(noTxn);		
 	}
 
 	@Override
-	public String sum() {
-		String res = "0";
-		if(data.sum() != null) {
-			res = data.sum();
+	public Float sum() {
+		Float res = 0F;
+		if(repositoryBudget.sum() != null) {
+			res = repositoryBudget.sum();
 		}		
 		return res;
 	}
 
 	@Override
 	public List<Budget> lastTen() {
-		return (List<Budget>)data.lasTen();
+		return (List<Budget>)repositoryBudget.lastTen();
 	}
 }

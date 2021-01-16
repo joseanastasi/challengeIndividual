@@ -1,4 +1,4 @@
-package com.example.demo.interfaces;
+package com.example.demo.repositories;
 
 import java.util.List;
 
@@ -10,12 +10,12 @@ import com.example.demo.modelo.Budget;
 
 @Repository
 
-public interface IBudget extends JpaRepository<Budget, Integer> {
+public interface RepositoryBudget extends JpaRepository<Budget, Integer> {
 	
 	@Query(value = "SELECT sum(amount) FROM budget", nativeQuery = true)
-	String sum();
+	Float sum();
 	
 	@Query(value = "SELECT * FROM budget order by date LIMIT 10;", nativeQuery = true)
 	
-	List<Budget> lasTen();
+	List<Budget> lastTen();
 }

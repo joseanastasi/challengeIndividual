@@ -9,6 +9,6 @@ public interface IBudgetService {
 	public Optional<Budget>listNoTxn(int noTxn);
 	public int save(Budget b);
 	public void delete(int id);
-	public String sum();
+	public Float sum();
 	public List<Budget> lastTen();
 }
