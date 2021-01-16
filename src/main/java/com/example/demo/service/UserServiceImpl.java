@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 
-
 	@Override
 	public User createUser(User user) throws Exception {
 		if (checkUsernameAvailable(user) && checkPasswordValid(user)) {

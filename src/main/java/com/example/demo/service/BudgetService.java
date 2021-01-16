@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.interfaceService.IBudgetService;
 import com.example.demo.modelo.Budget;
-import com.example.demo.repositories.RepositoryBudget;
+import com.example.demo.repository.RepositoryBudget;
 
 
 
