@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 
-
 	@Override
 	public User createUser(User user) throws Exception {
 		if (checkUsernameAvailable(user) && checkPasswordValid(user)) {
@@ -76,7 +75,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	/**
-	 * Map everythin but the password.
+	 * Map everything but the password.
 	 * @param from
 	 * @param to
 	 */
@@ -119,13 +118,14 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	private boolean isLoggedUserADMIN() {
-		//Obtener el usuario logeado
+		//Get the logged user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		UserDetails loggedUser = null;
 		Object roles = null;
 
-		//Verificar que ese objeto traido de sesion es el usuario
+		
+		//Check that the object retrieved from the session is the same user
 		if (principal instanceof UserDetails) {
 			loggedUser = (UserDetails) principal;
 
@@ -137,12 +137,12 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	private User getLoggedUser() throws Exception {
-		//Obtener el usuario logeado
+		//Get the logged user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		UserDetails loggedUser = null;
 
-		//Verificar que ese objeto traido de sesion es el usuario
+		//Check that the object retrieved from the session is the same user
 		if (principal instanceof UserDetails) {
 			loggedUser = (UserDetails) principal;
 		}

@@ -29,6 +29,7 @@ import com.example.demo.dto.ChangePasswordForm;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.repository.RoleRepository;
+import com.example.demo.service.RoleService;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -38,7 +39,9 @@ public class UserController {
 	UserService userService;
 	
 	@Autowired
-	RoleRepository roleRepository;
+	RoleService roleService;
+
+	
 	
 	@GetMapping({"/","/login"})
 	public String index() {
@@ -47,7 +50,8 @@ public class UserController {
 	
 	@GetMapping("/signup")
 	public String signup(Model model) {
-		Role userRole = roleRepository.findByName("USER");
+
+		Role userRole = roleService.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		
 		model.addAttribute("signup",true);
@@ -58,8 +62,10 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	public String signupAction(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
-		Role userRole = roleRepository.findByName("USER");
+		
+		Role userRole =	roleService.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
+		
 		model.addAttribute("userForm", user);
 		model.addAttribute("roles",roles);
 		model.addAttribute("signup",true);
@@ -86,7 +92,7 @@ public class UserController {
 	public String userForm(Model model) {
 		model.addAttribute("userForm", new User());
 		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleRepository.findAll());
+		model.addAttribute("roles",roleService.getAllroles());
 		model.addAttribute("listTab","active");
 		return "user-form/user-view";
 	}
@@ -107,18 +113,18 @@ public class UserController {
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
 				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles",roleRepository.findAll());
+				model.addAttribute("roles",roleService.getAllroles());
 			}catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
 				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles",roleRepository.findAll());
+				model.addAttribute("roles",roleService.getAllroles());
 			}
 		}
 		
 		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleRepository.findAll());
+		model.addAttribute("roles",roleService.getAllroles());
 		return "user-form/user-view";
 	}
 	
@@ -128,7 +134,7 @@ public class UserController {
 		
 		model.addAttribute("userForm", userToEdit);
 		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleRepository.findAll());
+		model.addAttribute("roles",roleService.getAllroles());
 		model.addAttribute("formTab","active");
 		model.addAttribute("editMode","true");
 		model.addAttribute("passwordForm",new ChangePasswordForm(id));
@@ -153,14 +159,14 @@ public class UserController {
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
 				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles",roleRepository.findAll());
+				model.addAttribute("roles",roleService.getAllroles());
 				model.addAttribute("editMode","true");
 				model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
 			}
 		}
 		
 		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleRepository.findAll());
+		model.addAttribute("roles",roleService.getAllroles());
 		return "user-form/user-view";
 		
 	}
