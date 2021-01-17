@@ -13,6 +13,8 @@
 	<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
 	
 	<a th:href="@{/add}" class="btn btn-primary">Add Budget</a>	
+	<a th:href="@{/userForm}" class="btn btn-primary">Users list</a>	
+	
 	<a class="btn btn-primary" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>logout</span></a>				   	
 	<br><br>
 	<div><label>Balance:</label><label th:text="${suma}"></label></div>	

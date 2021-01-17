@@ -23,7 +23,7 @@
 			</span>
 			<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
 				| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
-			</span>
+			</span>,
 			</td>
 		</tr>
 		</tbody>
