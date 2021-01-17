@@ -1,13 +1,14 @@
 package com.example.demo.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,7 @@ import com.example.demo.repository.UserRepository;
 public class UserServiceImplTest {
     
 	@Mock
-	private UserRepository userRepository;
+	private UserRepository userRepositoryMock;
 	   
 	    @Mock
 	    PasswordEncoder passwordEncoder;
@@ -43,41 +44,19 @@ public class UserServiceImplTest {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        userServiceImpl = new UserServiceImpl();
         passwordEncoder = new BCryptPasswordEncoder();
     }
     
     @Test
-    public void testCreateUser() {
-        Long id = 10L;
-        String firstName = "pepito";
-        String lastName = "diaz";
-        String username = "pepeDiaz";
-        String email = "cuca@cuca.com";
-        String passwordEnc = passwordEncoder.encode("pepino");
-
+    public void testCreateUser() throws Exception {
+    User user = newUser();
+    	
+        when(userRepositoryMock.save(user)).thenReturn(user);
                 
-        User user = new User();
-        user.setId(id);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setUsername(username);
-        user.setPassword(passwordEnc);
-        user.setEmail(email);
-        
-        when(userRepository.save(user)).thenReturn(user);
-                
-        assertEquals(user, userRepository.save(user));              
+        assertEquals(user, userServiceImpl.createUser(user));              
     }
        
-    
-//    @Override
-//	public Iterable<User> getAllUsers() {
-//		return repository.findAll();
-//	}
-//    
-    
-    
+       
     @Test
     public void testGetAllUser() {
 
@@ -85,8 +64,10 @@ public class UserServiceImplTest {
         User user2 = newUser();
         List<User> userList = List.of(user1, user2);
     
-        when(userRepository.findAll()).thenReturn(userList);        
-        assertEquals(userList, userServiceImpl.getAllUsers());    
+        when(userRepositoryMock.findAll()).thenReturn(userList);        
+        assertEquals(2, userList.size());    
+        
+//        assertEquals(userList, userServiceImpl.getAllUsers());    
              
     }
         
@@ -96,32 +77,33 @@ public class UserServiceImplTest {
        
         User user = newUser();
         Long id=1L;
-        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(userRepositoryMock.findById(id)).thenReturn(Optional.of(user));
         assertEquals(user, userServiceImpl.getUserById(id));        
-        
-        
+                
     }
+       
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    @Test
+    public void testDeleteUser() throws UsernameOrIdNotFound {
+       
+        User user = newUser();
+        userServiceImpl.deleteUser(1L);
+		verify(userRepositoryMock, times(1)).delete(user);
+
+    }
     
     
     
     private User newUser(){
     
-    	  Long id = 10L;
+    	  Long id = 1L;
           String firstName = "pepito";
           String lastName = "diaz";
           String username = "pepeDiaz";
           String email = "cuca@cuca.com";
-          String passwordEnc = passwordEncoder.encode("pepino");
+          String password="pepino";
+          String passwordEnc = passwordEncoder.encode(password);
+          String confirmPassword = passwordEnc;
 
                   
           User user = new User();
@@ -129,8 +111,9 @@ public class UserServiceImplTest {
           user.setFirstName(firstName);
           user.setLastName(lastName);
           user.setUsername(username);
-          user.setPassword(passwordEnc);
           user.setEmail(email);
+          user.setPassword(passwordEnc);
+          user.setConfirmPassword(confirmPassword);
           
           return user;
     	   	
@@ -139,43 +122,6 @@ public class UserServiceImplTest {
     
 }
         
-//           
-//    @Test
-//    public void testListNoTxn() {
-//    	Budget budget = createBudget();		
-//    	int noTxn = 1;  		
-//        when(budgetRepository.findById(noTxn)).thenReturn(Optional.of(budget));        
-//        assertEquals(Optional.of(budget), budgetService.listNoTxn(noTxn));              
-//    }
-//    
-//    @Test
-//    public void testSave() {
-//    	Float amountMock = 15.23F;
-//    	Budget budget = createBudget();
-//        when(budgetRepository.save(budget)).thenReturn(budget);
-//        
-//        int res = budgetService.save(budget);
-//        assertEquals(1, res);
-//        assertEquals(amountMock * -1, budget.getAmount());
-//    }                
-//   
-//    @Test
-//    public void testSum() {
-//    	//TODO: si corrijo el codigo de IBudget de String a Float cambiar el tipo de res
-//    	Float res = 5F;    	
-//        when(budgetRepository.sum()).thenReturn(res);               
-//        assertEquals(res, budgetService.sum());        
-//    }
-//    
-//    @Test
-//    public void testLastTen() {
-//    	Budget budget1 = createBudget();
-//    	Budget budget2 = createBudget();
-//    	List<Budget> budgetList = List.of(budget1, budget2);
-//    			
-//        when(budgetRepository.lastTen()).thenReturn(budgetList);        
-//        assertEquals(budgetList, budgetService.lastTen());              
-//    }
-//
+
   
 

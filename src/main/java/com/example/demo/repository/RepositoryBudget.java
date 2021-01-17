@@ -16,6 +16,5 @@ public interface RepositoryBudget extends JpaRepository<Budget, Integer> {
 	Float sum();
 	
 	@Query(value = "SELECT * FROM budget order by date LIMIT 10;", nativeQuery = true)
-	
 	List<Budget> lastTen();
 }
