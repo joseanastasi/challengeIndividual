@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -80,6 +81,8 @@ public class UserControllerTest {
 		verifyNoMoreInteractions(roleServiceMock);
 	}
 	
+	
+
 //	chequear el new User
 	@Test
 	public void testUserForm() throws Exception { 
@@ -127,6 +130,7 @@ public class UserControllerTest {
 		
 		User userToEdit = new User();
 		
+		when(userServiceMock.getUserById(1L)).thenReturn(userToEdit);
 		when(userServiceMock.getAllUsers()).thenReturn(userList);
 		when(roleServiceMock.getAllroles()).thenReturn(roleList);
 		
@@ -136,8 +140,7 @@ public class UserControllerTest {
 				.andExpect(model().attribute("userForm", userToEdit))
 				.andExpect(model().attribute("userList", userList))
 				.andExpect(model().attribute("roles", roleList))
-				.andExpect(model().attribute("formTab", "active"))
-				.andExpect(model().attribute("passwordForm", new ChangePasswordForm(id)))
+				.andExpect(model().attribute("formTab", "active"))				
 				.andExpect(model().attribute("editMode", "true"));
 				
 		verify(roleServiceMock, times(1)).getAllroles();
@@ -146,28 +149,7 @@ public class UserControllerTest {
 		verifyNoMoreInteractions(roleServiceMock);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	  private User newUser(){
 		    
     	  Long id = 1L;

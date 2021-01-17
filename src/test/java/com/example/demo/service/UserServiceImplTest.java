@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,8 +37,11 @@ public class UserServiceImplTest {
 	@Mock
 	private UserRepository userRepositoryMock;
 	   
-	    @Mock
-	    PasswordEncoder passwordEncoder;
+    @Mock
+    PasswordEncoder passwordEncoder;
+	    
+    @Mock
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@InjectMocks
     UserServiceImpl userServiceImpl;
@@ -51,11 +56,27 @@ public class UserServiceImplTest {
     public void testCreateUser() throws Exception {
     User user = newUser();
     	
-        when(userRepositoryMock.save(user)).thenReturn(user);
-                
+        when(userRepositoryMock.save(user)).thenReturn(user);    
+        when(userRepositoryMock.findByUsername(user.getUsername())).thenReturn(Optional.empty());                        
         assertEquals(user, userServiceImpl.createUser(user));              
     }
-       
+
+    @Test
+    public void testCreateUserFailBecauseUserAlreadyRegistered() throws Exception {
+    User user = newUser();
+    	
+        when(userRepositoryMock.save(user)).thenReturn(user);
+        when(userRepositoryMock.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+                                
+        try {
+        	userServiceImpl.createUser(user);
+        	Assert.fail();
+        } catch(Exception e)
+        {
+        }
+        
+    }
+
        
     @Test
     public void testGetAllUser() {
@@ -67,7 +88,7 @@ public class UserServiceImplTest {
         when(userRepositoryMock.findAll()).thenReturn(userList);        
         assertEquals(2, userList.size());    
         
-//        assertEquals(userList, userServiceImpl.getAllUsers());    
+        assertEquals(userList, userServiceImpl.getAllUsers());    
              
     }
         
@@ -87,6 +108,7 @@ public class UserServiceImplTest {
     public void testDeleteUser() throws UsernameOrIdNotFound {
        
         User user = newUser();
+        when(userRepositoryMock.findById(1L)).thenReturn(Optional.of(user));
         userServiceImpl.deleteUser(1L);
 		verify(userRepositoryMock, times(1)).delete(user);
 

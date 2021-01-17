@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -103,11 +104,24 @@ public class BudgetControllerTest {
 	public void test_addBudgetEntryFound() throws Exception { 
 		Budget budget = createBudget();
 		  		
+		
+		
 		mockMvc.perform(get("/add")).andExpect(status().isOk())
 				.andExpect(view().name("form"));
 		}
 	
-	
+	@Test
+	public void testSaveBudgetEntryFound() throws Exception { 
+		  		
+	    BindingResult result = mock(BindingResult.class);
+	    when(result.hasErrors()).thenReturn(true);
+
+		
+		mockMvc.perform(post("/save")).andExpect(status().isOk())
+				.andExpect(view().name("redirect:/list"));
+		
+		}
+		
 	 private Budget createBudget(){
 	    	Budget budget = new Budget();
 			
