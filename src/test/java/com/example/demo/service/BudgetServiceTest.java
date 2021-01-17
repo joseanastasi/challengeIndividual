@@ -20,7 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.example.demo.modelo.Budget;
-import com.example.demo.repositories.RepositoryBudget;
+import com.example.demo.repository.RepositoryBudget;
 
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = { TestContext.class, WebApplicationContext.class })
@@ -59,7 +59,6 @@ public class BudgetServiceTest {
    
     @Test
     public void testSum() {
-    	//TODO: si corrijo el codigo de IBudget de String a Float cambiar el tipo de res
     	Float res = 5F;    	
         when(budgetRepository.sum()).thenReturn(res);               
         assertEquals(res, budgetService.sum());        
