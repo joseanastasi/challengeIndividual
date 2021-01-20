@@ -1,10 +1,10 @@
-package com.example.demo.service;
+package com.example.demo.interfaceService;
 
 
 
 import com.example.demo.entity.Role;
 
-public interface RoleService {
+public interface IRoleService {
 
 	public Iterable<Role> getAllroles();
 

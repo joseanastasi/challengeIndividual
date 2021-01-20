@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.interfaceService;
 
 import javax.validation.Valid;
 
@@ -8,7 +8,7 @@ import com.example.demo.Exception.UsernameOrIdNotFound;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 
-public interface UserService {
+public interface IUserService {
 
 	public Iterable<User> getAllUsers();
 

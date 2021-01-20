@@ -17,10 +17,11 @@ import com.example.demo.dto.ChangePasswordForm;
 import com.example.demo.Exception.CustomeFieldValidationException;
 import com.example.demo.Exception.UsernameOrIdNotFound;
 import com.example.demo.entity.User;
+import com.example.demo.interfaceService.IUserService;
 import com.example.demo.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	UserRepository repository;
@@ -93,7 +94,6 @@ public class UserServiceImpl implements UserService{
 		User user = getUserById(id);
 		repository.delete(user);
 	}
-
 	
 	
 	@Override

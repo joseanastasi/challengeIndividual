@@ -65,7 +65,6 @@ public class UserServiceImplTest {
     public void testCreateUserFailBecauseUserAlreadyRegistered() throws Exception {
     User user = newUser();
     	
-        when(userRepositoryMock.save(user)).thenReturn(user);
         when(userRepositoryMock.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
                                 
         try {
@@ -141,9 +140,5 @@ public class UserServiceImplTest {
     	   	
     	}    	
     
-    
 }
         
-
-  
-

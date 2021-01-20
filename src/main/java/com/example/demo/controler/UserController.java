@@ -8,42 +8,37 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.Exception.CustomeFieldValidationException;
 import com.example.demo.Exception.UsernameOrIdNotFound;
 import com.example.demo.dto.ChangePasswordForm;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
-import com.example.demo.repository.RoleRepository;
-import com.example.demo.service.RoleService;
-import com.example.demo.service.UserService;
+import com.example.demo.interfaceService.IRoleService;
+import com.example.demo.interfaceService.IUserService;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	IUserService iUserService;
 	
 	@Autowired
-	RoleService roleService;
+	IRoleService iRoleService;
 
 	
 	
-	@GetMapping({"/","/login"})
+	@GetMapping({"/login"})
 	public String index() {
 		return "login";
 	}
@@ -51,7 +46,7 @@ public class UserController {
 	@GetMapping("/signup")
 	public String signup(Model model) {
 
-		Role userRole = roleService.findByName("USER");
+		Role userRole = iRoleService.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		
 		model.addAttribute("signup",true);
@@ -63,7 +58,7 @@ public class UserController {
 	@PostMapping("/signup")
 	public String signupAction(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 		
-		Role userRole =	roleService.findByName("USER");
+		Role userRole =	iRoleService.findByName("USER");
 		List<Role> roles = Arrays.asList(userRole);
 		
 		model.addAttribute("userForm", user);
@@ -74,7 +69,7 @@ public class UserController {
 			return "user-form/user-signup";
 		}else {
 			try {
-				userService.createUser(user);
+				iUserService.createUser(user);
 			} catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 				return "user-form/user-signup";
@@ -91,8 +86,8 @@ public class UserController {
 	@GetMapping("/userForm")
 	public String userForm(Model model) {
 		model.addAttribute("userForm", new User());
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleService.getAllroles());
+		model.addAttribute("userList", iUserService.getAllUsers());
+		model.addAttribute("roles",iRoleService.getAllroles());
 		model.addAttribute("listTab","active");
 		return "user-form/user-view";
 	}
@@ -104,7 +99,7 @@ public class UserController {
 			model.addAttribute("formTab","active");
 		}else {
 			try {
-				userService.createUser(user);
+				iUserService.createUser(user);
 				model.addAttribute("userForm", new User());
 				model.addAttribute("listTab","active");
 				
@@ -112,29 +107,29 @@ public class UserController {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
-				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles",roleService.getAllroles());
+				model.addAttribute("userList", iUserService.getAllUsers());
+				model.addAttribute("roles",iRoleService.getAllroles());
 			}catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
-				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles",roleService.getAllroles());
+				model.addAttribute("userList", iUserService.getAllUsers());
+				model.addAttribute("roles",iRoleService.getAllroles());
 			}
 		}
 		
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleService.getAllroles());
+		model.addAttribute("userList", iUserService.getAllUsers());
+		model.addAttribute("roles",iRoleService.getAllroles());
 		return "user-form/user-view";
 	}
 	
 	@GetMapping("/editUser/{id}")
 	public String getEditUserForm(Model model, @PathVariable(name ="id")Long id)throws Exception{
-		User userToEdit = userService.getUserById(id);
+		User userToEdit = iUserService.getUserById(id);
 		
 		model.addAttribute("userForm", userToEdit);
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleService.getAllroles());
+		model.addAttribute("userList", iUserService.getAllUsers());
+		model.addAttribute("roles",iRoleService.getAllroles());
 		model.addAttribute("formTab","active");
 		model.addAttribute("editMode","true");
 		model.addAttribute("passwordForm",new ChangePasswordForm(id));
@@ -151,22 +146,22 @@ public class UserController {
 			model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
 		}else {
 			try {
-				userService.updateUser(user);
+				iUserService.updateUser(user);
 				model.addAttribute("userForm", new User());
 				model.addAttribute("listTab","active");
 			} catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
-				model.addAttribute("userList", userService.getAllUsers());
-				model.addAttribute("roles",roleService.getAllroles());
+				model.addAttribute("userList", iUserService.getAllUsers());
+				model.addAttribute("roles",iRoleService.getAllroles());
 				model.addAttribute("editMode","true");
 				model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
 			}
 		}
 		
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleService.getAllroles());
+		model.addAttribute("userList", iUserService.getAllUsers());
+		model.addAttribute("roles",iRoleService.getAllroles());
 		return "user-form/user-view";
 		
 	}
@@ -179,7 +174,7 @@ public class UserController {
 	@GetMapping("/deleteUser/{id}")
 	public String deleteUser(Model model, @PathVariable(name="id")Long id) {
 		try {
-			userService.deleteUser(id);
+			iUserService.deleteUser(id);
 		} 
 		catch (UsernameOrIdNotFound uoin) {
 			model.addAttribute("listErrorMessage",uoin.getMessage());
@@ -197,7 +192,7 @@ public class UserController {
 
 				throw new Exception(result);
 			}
-			userService.changePassword(form);
+			iUserService.changePassword(form);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

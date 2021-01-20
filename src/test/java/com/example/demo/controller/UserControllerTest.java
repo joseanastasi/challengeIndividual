@@ -5,7 +5,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -29,11 +28,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.example.demo.controler.UserController;
-import com.example.demo.dto.ChangePasswordForm;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
-import com.example.demo.service.RoleService;
-import com.example.demo.service.UserService;
+import com.example.demo.interfaceService.IRoleService;
+import com.example.demo.interfaceService.IUserService;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -42,9 +40,9 @@ import com.example.demo.service.UserService;
 public class UserControllerTest {
 
 	@Mock
-	private UserService userServiceMock;
+	private IUserService userServiceMock;
 	@Mock
-	private RoleService roleServiceMock;
+	private IRoleService roleServiceMock;
     @Mock
     PasswordEncoder passwordEncoder;
 	
