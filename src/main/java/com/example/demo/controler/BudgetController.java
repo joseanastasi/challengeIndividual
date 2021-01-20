@@ -43,7 +43,7 @@ public class BudgetController {
 	}
 	
 	@PostMapping("/save")
-	public String save(@Valid Budget b, BindingResult bindingResult , Model model) {
+	public String save(@Valid Budget b, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return "form";
 		}

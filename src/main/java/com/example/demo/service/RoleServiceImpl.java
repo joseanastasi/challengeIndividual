@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Role;
+import com.example.demo.interfaceService.IRoleService;
 import com.example.demo.repository.RoleRepository;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements IRoleService{
 
 	@Autowired
 	RoleRepository repository;
