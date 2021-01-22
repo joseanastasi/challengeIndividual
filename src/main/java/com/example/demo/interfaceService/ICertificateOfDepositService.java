@@ -6,5 +6,5 @@ import com.example.demo.modelo.CertificateOfDeposit;
 
 public interface ICertificateOfDepositService {
 	public int save(CertificateOfDeposit b);	
-	public void cashCertificate(int noTxn, Date today);
+	public void cashCertificate(int noTxn, Date today) throws Exception;
 }

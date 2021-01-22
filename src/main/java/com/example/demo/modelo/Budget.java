@@ -30,9 +30,8 @@ public class Budget implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int noTxn;
-	@NotEmpty
-	@NotNull
-	private String concept;
+	
+	private Long userId;
 	@NotNull
 	private float amount;
 	@Temporal(TemporalType.DATE)
@@ -45,29 +44,29 @@ public class Budget implements Serializable{
 	public Budget() {
 	}
 
-	public Budget(String concept, float amount, Date date, String type) {
+	public Budget(float amount, Date date, String type) {
 		super();
-		this.concept = concept;
 		this.amount = amount;
 		this.date = date;
 		this.type = type;
 	}
 	
 	
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	public int getNoTxn() {
 		return noTxn;
 	}
 
 	public void setNoTxn(int noTxn) {
 		this.noTxn = noTxn;
-	}
-
-	public String getConcept() {
-		return concept;
-	}
-
-	public void setConcept(String concept) {
-		this.concept = concept;
 	}
 
 	public float getAmount() {

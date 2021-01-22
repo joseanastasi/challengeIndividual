@@ -3,9 +3,9 @@
 		<thead class="thead-light">
 		<tr>
 			<th scope="col">#</th>
-			<th scope="col">First</th>
-			<th scope="col">Last</th>
-			<th scope="col">Username</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Apellido</th>
+			<th scope="col">Usuario</th>
 			<th scope="col">E-mail</th>
 			<th></th>
 		</tr>
@@ -18,12 +18,16 @@
 			<td th:text="${user.username}"></td>
 			<td th:text="${user.email}"></td>
 			<td>
-			<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.username})">
-					<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
-			</span>
-			<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >
-				| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
-			</span>
+    			<a th:if="${user.username} == '${#authentication.getPrincipal().getUsername()}'">Female</a>
+    		 	<a th:unless="'${user.username}' == ${#authentication.getPrincipal().getUsername()}" 
+    			th:href="@{'/transferMoneyToUser/'+ ${user.id}}" class="btn btn-primary">Transferencia</a>
+						
+			
+				 <!-- th:switch="${user.username}">
+					<a th:case="${#authentication.getPrincipal().getUsername()}" class=""></a>
+					<a th:case="*" th:href="@{'/transferMoneyToUser/'+ ${user.id}}" class="btn btn-primary">Transferencia</a>
+				-->
+						
 			</td>
 		</tr>
 		</tbody>

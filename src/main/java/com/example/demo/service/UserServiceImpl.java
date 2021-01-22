@@ -136,7 +136,7 @@ public class UserServiceImpl implements IUserService{
 		return roles != null ? true : false;
 	}
 	
-	private User getLoggedUser() throws Exception {
+	public User getLoggedUser() throws Exception {
 		//Get the logged user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		

@@ -136,7 +136,7 @@ public class UserController {
 		
 		return "user-form/user-view";
 	}
-	
+		
 	@PostMapping("/editUser")
 	public String postEditUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
@@ -165,6 +165,8 @@ public class UserController {
 		return "user-form/user-view";
 		
 	}
+	
+	
 	
 	@GetMapping("/userForm/cancel")
 	public String cancelEditUser(ModelMap model) {

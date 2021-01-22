@@ -1,9 +1,10 @@
 package com.example.demo.modelo;
 
 
-public class CertificateOfDeposit {
+public class TransferMoney {
 	private float amount;
 	private Long userId;
+private Long idUserToTransfer;
 
 	public float getAmount() {
 		return amount;
@@ -20,5 +21,14 @@ public class CertificateOfDeposit {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+
+	public Long getIdUserToTransfer() {
+		return idUserToTransfer;
+	}
+
+	public void setIdUserToTransfer(Long idUserToTransfer) {
+		this.idUserToTransfer = idUserToTransfer;
+	}
+	
 	
 	}
