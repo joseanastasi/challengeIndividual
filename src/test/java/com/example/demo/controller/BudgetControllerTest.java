@@ -1,13 +1,10 @@
 package com.example.demo.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -15,14 +12,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.ui.Model;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,13 +25,11 @@ import org.springframework.test.context.TestContext;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
+
 import com.example.demo.controler.BudgetController;
 import com.example.demo.interfaceService.IBudgetService;
 import com.example.demo.modelo.Budget;
-import com.example.demo.service.BudgetService;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -112,32 +105,7 @@ public class BudgetControllerTest {
 				.andExpect(view().name("form"));
 		}
 	
-			
-//	@RequestMapping(method = RequestMethod.POST)
-//	public String save(@Valid @ModelAttribute Account account, BindingResult result) {
-//		if (result.hasErrors()) {
-//			return "accounts/edit";
-//		}
-//		this.accountManager.saveOrUpdate(account);
-//		return "redirect:accounts";
-//	}
-//	Ejemplo del controler para el test
-	
-//	
-//	@Test
-//	public void testSaveFail() {
-//	    Account account = new Account();
-//	    BindingResult result = new BeanPropertyBindingResult(account, "account");
-//	    AccountManager mgr = createMock(AccountManager.class);
-//	    mgr.saveOrUpdate(account);
-//	    replay(mgr);
-//	    AccountController contrlr = new AccountController(mgr);
-//	    String view = contrlr.save(account, result);
-//	    assertEquals("redirect:accounts", view);
-//	    verify(mgr);
-//	}
-//	
-		
+
 	
 //	
 //	@Test
@@ -173,7 +141,6 @@ public class BudgetControllerTest {
 			Date dateMock = new Date(2020-05-05);
 			
 			budget.setDate(dateMock);
-			budget.setConcept(conceptMock);
 			budget.setNoTxn(noTxn);
 			budget.setType("Egreso");
 			budget.setAmount(amountMock);

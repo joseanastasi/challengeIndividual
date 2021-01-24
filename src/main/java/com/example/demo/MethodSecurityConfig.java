@@ -20,5 +20,4 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 	
 	
 	
-	
 

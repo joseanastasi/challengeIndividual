@@ -56,23 +56,23 @@ public class BudgetServiceTest {
         assertEquals(1, res);
         assertEquals(amountMock * -1, budget.getAmount());
     }                
-   
-    @Test
-    public void testSum() {
-    	Float res = 5F;    	
-        when(budgetRepository.sum()).thenReturn(res);               
-        assertEquals(res, budgetService.sum());        
-    }
-    
-    @Test
-    public void testLastTen() {
-    	Budget budget1 = createBudget();
-    	Budget budget2 = createBudget();
-    	List<Budget> budgetList = List.of(budget1, budget2);
-    			
-        when(budgetRepository.lastTen()).thenReturn(budgetList);        
-        assertEquals(budgetList, budgetService.lastTen());              
-    }
+//   
+//    @Test
+//    public void testSum() {
+//    	Float res = 5F;    	
+//        when(budgetRepository.sum()).thenReturn(res);               
+//        assertEquals(res, budgetService.sum());        
+//    }
+//    
+//    @Test
+//    public void testLastTen() {
+//    	Budget budget1 = createBudget();
+//    	Budget budget2 = createBudget();
+//    	List<Budget> budgetList = List.of(budget1, budget2);
+//    			
+//        when(budgetRepository.lastTen()).thenReturn(budgetList);        
+//        assertEquals(budgetList, budgetService.lastTen());              
+//    }
 
     private Budget createBudget(){
     	Budget budget = new Budget();
@@ -83,7 +83,6 @@ public class BudgetServiceTest {
 		Date dateMock = new Date(2020-05-05);
 		
 		budget.setDate(dateMock);
-		budget.setConcept(conceptMock);
 		budget.setNoTxn(noTxn);
 		budget.setType("Egreso");
 		budget.setAmount(amountMock);
